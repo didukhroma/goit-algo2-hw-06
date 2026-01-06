@@ -2,6 +2,10 @@ import mmh3
 
 
 class BloomFilter:
+    """
+    Class representing a BloomFilter
+    """
+
     def __init__(self, size, num_hashes):
         self.size = size
         self.num_hashes = num_hashes
@@ -20,16 +24,24 @@ class BloomFilter:
         return True
 
 
-def check_password_uniqueness(bloom_filter, passwords):
+def check_password_uniqueness(bloom_filter: BloomFilter, passwords: list[str]):
+    """
+    Docstring for check_password_uniqueness
+
+    :param bloom_filter: Description
+    :type bloom_filter: BloomFilter
+    :param passwords: Description
+    :type passwords: list[str]
+    """
     results = {}
     for password in passwords:
         if not password:
-            results[password] = "Пароль невалідний"
+            results[password] = "невалідний"
             continue
         if bloom_filter.contains(password):
-            results[password] = "Пароль вже використаний"
+            results[password] = "вже використаний"
         else:
-            results[password] = "Пароль є унікальним"
+            results[password] = "є унікальним"
             bloom_filter.add(password)
     return results
 
